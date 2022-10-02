@@ -6,6 +6,8 @@ import Categories from '../components/Categories';
 import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
+
+//INFO:
 const Homepage = () => {
   return (
     <div>
