@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Send} from '@mui/icons-material';
+import {mobile}  from '../responsive';
 
 const Container = styled.div`
     height:60vh;
@@ -22,6 +23,9 @@ const Description = styled.p`
     font-weight:300px;
     margin-bottom:20px;
     margin-top:20px;
+    ${mobile({
+      textAlign:`center`
+    })}
 `;
 
 const InputContainer = styled.div`
@@ -32,6 +36,9 @@ const InputContainer = styled.div`
   margin-top: 20px;
   justify-content: space-between;
   border: 1px solid lightgray;
+  ${mobile({
+    width:"80%"
+  })}
 `;
 
 const Input = styled.input`

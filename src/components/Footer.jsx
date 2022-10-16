@@ -1,9 +1,13 @@
 import { Facebook, MailOutline, Phone, Pinterest, Room, Twitter, YouTube } from '@mui/icons-material';
 import React from 'react'
 import styled from 'styled-components';
+import {mobile}  from '../responsive';
 
 const Container = styled.div`
     display:flex;
+    ${mobile({
+        flexDirection: 'column',
+    })}
 `;
 
 const Left = styled.div`
@@ -11,7 +15,9 @@ const Left = styled.div`
     display: flex;
     flex-direction: column;
     padding: 20px;
-    margin-left:70px;
+    ${mobile({
+        textAlign: 'center',
+    })}
 `;
 const Center = styled.div`
     display: flex;
@@ -20,10 +26,16 @@ const Center = styled.div`
     align-items:center;
     flex:1;
     padding: 20px;
+    ${mobile({
+        display:"none"
+    })}
 `
     
 const Title = styled.h3`
     margin-bottom: 30px;
+    ${mobile({
+        textAlign: "center",
+    })}
 `;
 
 
@@ -49,10 +61,14 @@ const Right = styled.div`
     flex-direction: column;
     flex:1;
     padding: 20px;
+    ${mobile({
+        backgroundColor:"#FFF8F8"
+    })}
 `;
 
 const SocialContainer = styled.div`
     display: flex;
+    ${mobile({marginLeft:"50px", display:"flex"})}
  `;
 
 const Logo = styled.h1`

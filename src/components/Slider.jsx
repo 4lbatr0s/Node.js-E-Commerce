@@ -2,6 +2,7 @@ import {React, useState} from 'react'
 import styled from 'styled-components';
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@mui/icons-material';
 import { sliderItems } from '../data';
+import {mobile}  from '../responsive';
 //take 100 percent of the height and the width of the page.
 const Container = styled.div` 
     width: 100%;
@@ -9,6 +10,9 @@ const Container = styled.div`
     display: flex;
     position: relative;
     overflow: hidden;
+    ${mobile({
+        display:"none"
+    })}
 `
 const Arrow = styled.div`
     width: 50px;

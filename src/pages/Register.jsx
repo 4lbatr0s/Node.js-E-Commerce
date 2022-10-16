@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import {mobile} from '../responsive';
+
 const Container = styled.div`
     background-image: linear-gradient(to bottom right, rgb(70,78, 144), purple);
     width:100vw;
@@ -16,6 +18,9 @@ const Wrapper = styled.div`
     flex-direction: column;
     background-color:rgba(100,120, 144, 0.3);
     border-radius: 5%;
+    ${mobile({
+        width: "75%"
+    })}
 `;
 
 const Title = styled.h1`
