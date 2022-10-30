@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import {mobile}  from '../responsive';
-
+import { Link } from 'react-router-dom';
 const Container = styled.div`
     flex: 1;
     margin:3px;
@@ -36,7 +36,6 @@ const Button = styled.button`
     color:gray;
     width:30%;
     height:10%;
-    margin-top:20px;
     font-weight:600;
     &:hover{
         transform: scale(1.1);
@@ -53,7 +52,8 @@ export const CategoryItem = (props) => {
     const {item} = props; 
 
   return (
-    <Container>
+    <Container> {/*INFO: How to use individual components with id!*/}
+        <Link to = {`/products/${item.cat}`}>
         <Image src = {item.img}/>
             <Info>
                 <Title>
@@ -63,6 +63,7 @@ export const CategoryItem = (props) => {
                     SHOP NOW!
                 </Button>
             </Info>
+        </Link>
     </Container>
   )
 }

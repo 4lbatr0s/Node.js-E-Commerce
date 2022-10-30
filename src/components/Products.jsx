@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { popularProducts } from '../data'
 import styled from 'styled-components'
 import Product from './Product';
+import { getProducts } from '../helpers/backend_helper';
 
 const Container = styled.div`
     display: flex;
@@ -11,7 +12,22 @@ const Container = styled.div`
 `;
 
 //INFO:asdasdasdasdasdasdasdasdas
-const Products = () => {
+const Products = ({cat, filters,sort}) => {
+  //INFO: get filterin products from ProductLists.
+
+  //#useStates
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  //#useEffects
+  useEffect(()=> {
+    const response = getProducts({
+      category:cat
+    });
+    console.log(response);
+  }, [cat])
+
+  console.log(cat,filters,sort);
   return (
     <Container >
         {

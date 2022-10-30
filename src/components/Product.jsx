@@ -79,9 +79,7 @@ const Product = (props) => {
             <Icon>
                 <FavoriteBorderOutlined/>
             </Icon>
-            
         </Info>
-
     </Container>
   )
 }
