@@ -16,8 +16,8 @@ const Container = styled.div`
 
 const Categories = () => {
   return (
-    <Container>
-        {categories.map((item)=> (
+    <Container>{/*INFO: How to use individual components with id!*/}
+        {categories.map((item)=> ( 
             <CategoryItem item ={item} key = {item.id}></CategoryItem>
         ))}
     </Container>

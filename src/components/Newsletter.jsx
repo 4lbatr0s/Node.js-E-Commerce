@@ -29,8 +29,7 @@ const Description = styled.p`
 `;
 
 const InputContainer = styled.div`
-  width: 50%;
-  height: 40px;
+    height: 40px;
   background-color: white;
   display: flex;
   margin-top: 20px;

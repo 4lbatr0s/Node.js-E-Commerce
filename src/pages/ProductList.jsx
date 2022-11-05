@@ -49,7 +49,7 @@ const Option = styled.option`
 
 const ProductList = () => {
     //#Variables
-    let location = useLocation();
+    let location = useLocation();//TIP: get locations in the pages, and pass them to components.
     let cat = location.pathname.split("/")[2];
     //#useStates
     const [filters, setFilters] = useState({});
@@ -59,18 +59,18 @@ const ProductList = () => {
         const value = e.target.value;
         setFilters({
             ...filters, 
-            [e.target.name]: value //get name and set it as the value! name=color, {color:value}
+            [e.target.name]: value.toLowerCase() //get name and set it as the value! name=color, {color:value}
         });
     }
     const sortHandler = (e)=>{
         setSort(e.target.value);
     }
-
+ 
     return (
     <Container>
         <Navbar></Navbar>
         <Annoucement></Annoucement>
-        <Title>DRESSESS</Title>
+        <Title>{cat}</Title>
         <FilterContainer>
             <Filter>
                 <FilterText>
@@ -100,7 +100,7 @@ const ProductList = () => {
                     Sort Products:
                 </FilterText>
                 <Select onChange={(e) => sortHandler(e)}> {/*INFO: How to get value from SELECT! */}
-                    <Option value="newest" selected>Newest</Option>
+                    <Option value="newest" selected>Newest</Option> //TIP: default value is Newest, but you can override the value!
                     <Option value="asc">Price(asc)</Option>
                     <Option value="desc">Price(desc)</Option>
                 </Select>
