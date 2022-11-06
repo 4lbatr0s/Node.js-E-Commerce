@@ -64,7 +64,15 @@ const Products = ({cat, filters,sort}) => {
   }, [cat,filters,products])
 
   //TIP: Whenever sorting changes, resort the products!
-
+  useEffect(()=> {
+    if(sort ==="newest") { 
+      setFilteredProducts((previous) => [...previous].sort((a,b) => a.createdAt - b.createdAt)); 
+    } else if (sort ==="asc") {
+      setFilteredProducts((previous)=> [...previous].sort((a,b) => a.price - b.price)); //TIP: if the second price> first price, it ascends
+    } else {
+      setFilteredProducts((previous)=> [...previous].sort((a,b) => b.price - a.price)); //TIP: if the first price> second price, it descend
+    }
+  }, [sort])
   
   useEffect(()=> {
     console.log("filteredProducts:",filteredProducts);
