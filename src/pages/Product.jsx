@@ -1,4 +1,4 @@
-import React from 'react'
+import {useState, useEffect} from 'react'
 import Navbar from '../components/Navbar';
 import Annoucement from '../components/Annoucement';
 import Newsletter from '../components/Newsletter';
@@ -6,6 +6,8 @@ import Footer from '../components/Footer';
 import styled from 'styled-components';
 import { Add, Remove } from '@mui/icons-material';
 import {mobile} from '../responsive';
+import { useLocation } from 'react-router-dom';
+import { getProduct, getProducts } from '../helpers/backend_helper';
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -127,43 +129,76 @@ const Button = styled.button`
   }
 `;
 
+  /*#conditionalRendering*/
+
+
 const Product = () => {
+  const location = useLocation();//TIP: get locations in the pages, and pass them to components.
+  const productId = location.pathname.split("/")[2];
+
+  /*#useStates*/
+  const [product, setProduct] = useState({});
+  const [amount, setAmount] = useState(1);
+  const [color, setColor] = useState();
+  const [size, setSize] = useState();
+  
+  /*#customFunctions*/
+  const amountHandler = (type)=> {
+    if(type==="inc"){
+      setAmount(amount+1);
+    } else if (type ==="dec" ) {
+      amount>1 && setAmount(amount-1);
+    }
+  }
+
+  /*#useEffects*/
+  useEffect(()=> {
+    const getProductResponse = async () => {
+      const result = await getProduct(productId);
+      setProduct(result);
+      console.log(result);
+    }
+
+    getProductResponse();
+  }, [productId])
+
   return (
     <Container>
       <Navbar></Navbar>
       <Annoucement></Annoucement>
       <Wrapper>
         <ImgContainer>
-          <Image src = "https://ae01.alicdn.com/kf/H5ac7f2e8afbe46b19e05b6d8f10371a5V/2022-Mens-Faux-Leather-Jacket-Men-s-Black-Motorcycle-Jackets-High-Quality-Masculina-Outwear-Male-PU.jpg"></Image>
+          <Image src = {`${product.description}`}></Image>
         </ImgContainer>
         <InfoContainer>
-          <Title>LEATHER JACKET</Title>
-          <Desc>{`Vestibulum vitae viverra nisl. Suspendisse ut ornare eros. Vivamus lacinia mauris sed turpis mollis, vitae fringilla risus commodo. Proin interdum turpis purus, a dapibus ex malesuada a. Donec gravida nisl sit amet velit hendrerit mollis. Pellentesque ligula orci, ullamcorper a maximus eu, faucibus hendrerit libero. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque arcu nec mauris tristique semper. Nulla vitae velit in nunc egestas faucibus. Donec sit amet ex lectus. Donec vitae interdum sapien, et faucibus lectus. Nullam imperdiet, lacus et convallis dignissim, est ipsum luctus magna, in hendrerit ligula tortor quis tortor. Donec sagittis enim et accumsan ullamcorper. Vestibulum sit amet mauris sit amet lacus scelerisque ornare sed quis justo. Donec ac sollicitudin mauris. Praesent aliquet vestibulum ullamcorper.`}</Desc>
-          <Price>$20</Price>
+          <Title>{product.title?.toUpperCase() || ""}</Title>
+          <Desc>{product.description}</Desc>
+          <Price>${amount*product.price}</Price>
           <FilterContainer>
           <Filter>
             <FilterTitle>Color</FilterTitle>
-            <FilterColor color="black"></FilterColor>
-            <FilterColor color="darkblue"></FilterColor>
-            <FilterColor color="gray"></FilterColor>
+            {
+              product.color?.map((color)=> (
+                <FilterColor key = {product._id} color={`${color}`} onClick={()=> setColor(color)}></FilterColor>
+              ))
+            }
           </Filter>
           <Filter>
             <FilterTitle>Size</FilterTitle>
-            <FilterSize>
-              <FilterSizeOption>XS</FilterSizeOption>
-              <FilterSizeOption>S</FilterSizeOption>
-              <FilterSizeOption>M</FilterSizeOption>
-              <FilterSizeOption>L</FilterSizeOption>
-              <FilterSizeOption>XL</FilterSizeOption>
-              <FilterSizeOption>XL</FilterSizeOption>
+            <FilterSize onChange = {(e)=>{setSize(e.target.value)}}>
+              {
+                product.size?.map((size)=> (
+                  <FilterSizeOption key = {product._id}>{size.toUpperCase()}</FilterSizeOption>
+                ))
+              }
             </FilterSize>
           </Filter>
         </FilterContainer>
         <AddContainer>
           <AmountContainer>
-            <Remove cursor="pointer"></Remove>
-            <Amount>1</Amount>
-            <Add cursor="pointer"></Add>
+            <Remove onClick ={()=> amountHandler("dec")} cursor="pointer"></Remove>
+            <Amount>{amount}</Amount>
+            <Add  onClick ={()=> amountHandler("inc")}  cursor="pointer"></Add>
           </AmountContainer>
           <Button>ADD TO CART</Button>
         </AddContainer>

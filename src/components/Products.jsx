@@ -13,10 +13,15 @@ const Container = styled.div`
     justify-content: space-between;
 `;
 
-//Conditional Rendering
+//#Conditional Rendering
 
-function DisplayProducts({ filteredProducts, products }) {
-  if (filteredProducts.length > 0) {
+/*
+  Returns list of products based on the category
+  @param {Object Array} filteredProducts: The filteredProducts if there is a category.
+  @param {Object Array} products: first 8 elements of the products if there are no categories.   
+*/
+function DisplayProducts({ filteredProducts, products, category}) {
+  if (category && Object.keys(category).length !== 0) {
     return (
       filteredProducts && filteredProducts.map((product) => (
         <Product product={product} key={product.id}></Product>
@@ -81,7 +86,7 @@ const Products = ({cat, filters,sort}) => {
 
   return (
     <Container >
-            <DisplayProducts filteredProducts={filteredProducts} products ={products} />
+            <DisplayProducts filteredProducts={filteredProducts} products ={products} category = {cat} />
     </Container>
   )
 }
