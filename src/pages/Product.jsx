@@ -8,6 +8,9 @@ import { Add, Remove } from '@mui/icons-material';
 import {mobile} from '../responsive';
 import { useLocation } from 'react-router-dom';
 import { getProduct, getProducts } from '../helpers/backend_helper';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../redux/cartRedux';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -135,14 +138,24 @@ const Button = styled.button`
 const Product = () => {
   const location = useLocation();//TIP: get locations in the pages, and pass them to components.
   const productId = location.pathname.split("/")[2];
+  const dispatch = useDispatch();
 
-  /*#useStates*/
+  /**
+   * @useSelectors
+   */
+
+  /**
+   * @useStates
+   */
   const [product, setProduct] = useState({});
   const [amount, setAmount] = useState(1);
   const [color, setColor] = useState();
   const [size, setSize] = useState();
   
-  /*#customFunctions*/
+  /**
+   * 
+   * @customFunctions
+   */
   const amountHandler = (type)=> {
     if(type==="inc"){
       setAmount(amount+1);
@@ -151,12 +164,18 @@ const Product = () => {
     }
   }
 
-  /*#useEffects*/
+  const cartHandler = ()=>{
+    console.log("calisti")
+    dispatch(addProduct({...product, amount, color, size}))
+  }
+
+ /**
+  * @useEffects
+  */
   useEffect(()=> {
     const getProductResponse = async () => {
       const result = await getProduct(productId);
       setProduct(result);
-      console.log(result);
     }
 
     getProductResponse();
@@ -200,7 +219,7 @@ const Product = () => {
             <Amount>{amount}</Amount>
             <Add  onClick ={()=> amountHandler("inc")}  cursor="pointer"></Add>
           </AmountContainer>
-          <Button>ADD TO CART</Button>
+          <Button onClick={()=>cartHandler()} >ADD TO CART</Button>
         </AddContainer>
         </InfoContainer>
       </Wrapper>

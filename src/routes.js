@@ -6,7 +6,8 @@ import Product from './pages/Product';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
 import { redirect } from 'react-router-dom';
-const user = true;
+import Success from './pages/Success';
+const user = false;
 const projectRouter = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -37,6 +38,10 @@ const projectRouter = createBrowserRouter(
             <Route
                 path="cart"
                 element={<Cart />}
+            />
+            <Route
+                path="success"
+                element={<Success />}
             />
         </>
 

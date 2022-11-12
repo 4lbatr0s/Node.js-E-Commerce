@@ -1,7 +1,8 @@
-import React from 'react'
+import {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {mobile} from '../responsive';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../redux/apiCalls';
 const Container = styled.div`
     background-image: linear-gradient(to bottom right, rgb(70,78, 144), purple);
     width:100vw;
@@ -70,8 +71,11 @@ const Button = styled.button`
     &:hover{
         background-color:rgb(70, 78, 144);
         cursor:pointer;
-        color:white
-    }`;
+        color:white;
+    };
+    &:disabled{
+        cursor:not-allowed;
+    };`;
     
 
 const LinkContainer = styled.div`
@@ -88,8 +92,48 @@ const Link = styled.a`
     cursor:pointer;
 `;
 
+const Error = styled.span`
+    color:red;
+`;
+
 
 const Register = () => {
+    /**
+     * @hookDeclarations
+     */
+    const dispatch = useDispatch();
+
+
+    /**
+     * @useSelectors
+     */
+    const {isFetching, error} = useSelector((state)=> state.user);
+    /**
+     * @useStates
+     */
+     const [username, setUsername] = useState("");
+     const [password, setPassword] = useState("");
+ 
+     /**
+      * @customFunctions
+      */
+     const usernameHandler = (e)=> {
+         setUsername(e.target.value);
+     }
+ 
+     const passwordHandler = (e)=>{
+         setPassword(e.target.value);
+     }
+
+     const loginHandler = (e) =>{ 
+        e.preventDefault();
+        login(dispatch, {username, password});
+     }
+ 
+     /**
+      * @useEffects
+      */
+
    return (
     <Container>
         <Wrapper>
@@ -97,10 +141,11 @@ const Register = () => {
                 SIGN IN
             </Title>
             <Form>
-                <Input type="email" placeholder="email"></Input>
-                <Input type ="password" placeholder="password"></Input>
+                <Input type="email" placeholder="email" onChange={(e)=> {usernameHandler(e)}}></Input>
+                <Input type ="password" placeholder="password" onChange={(e)=> {passwordHandler(e)}}></Input>
                 <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b></Agreement>
-                <Button>LOGIN</Button>
+                <Button onClick={(e)=>{loginHandler(e)}} disabled={isFetching}>LOGIN</Button>
+                {error ? <Error>Something went wrong!</Error> : null}
             </Form>
             <LinkContainer>
             <Link>SIGN UP</Link>

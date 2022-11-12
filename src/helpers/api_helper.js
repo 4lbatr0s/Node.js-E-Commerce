@@ -19,3 +19,22 @@ export const getAsync = async (pathname, data) => {
 
 
 
+export const postAsync = async (pathname, data) => {
+    try {
+        let response = {};
+        if (typeof data === "object" && Object.keys(data).length !== 0) { //TIP: How to check if an object is empty!, to get from query
+            response = await userRequest.post(pathname, { params: data });
+        } else if (typeof data !== "object" && data) { //TIP: To post from params
+            response = await userRequest.post(pathname + `/${data}`)
+        }
+        else {
+            response = await userRequest.post(pathname);
+        }
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+

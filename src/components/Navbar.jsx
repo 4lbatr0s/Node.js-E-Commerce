@@ -1,9 +1,13 @@
-import React from 'react'
+import { useState, useEffect} from 'react'
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Search} from '@mui/icons-material';
 import { Badge } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {mobile} from "../responsive"
+import { useDispatch } from 'react-redux';
+import {Link} from "react-router-dom";
+
 const Container = styled.div`
     height:60px;  
 
@@ -81,6 +85,18 @@ const MenuItem = styled.div`
 `
 
 function Navbar() {
+    //#hook declarations
+    const dispatch = useDispatch();
+
+    //#useSelectors
+    const quantity = useSelector(state=>state.cart.quantity);
+    //#useStates
+
+    //#customFunctions
+     
+
+    //#useEffects
+
   return (
     <Container>
         <Wrapper>
@@ -101,11 +117,13 @@ function Navbar() {
                 <MenuItem>
                     SIGN IN
                 </MenuItem>   
-                <MenuItem>
-                <Badge badgeContent={4} color="primary">
-                    <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
-                </Badge>
-                </MenuItem>
+                <Link to="/cart">  {/**TIP: How to go cart pages */}
+                    <MenuItem>
+                    <Badge badgeContent={quantity} color="primary">
+                        <ShoppingCartOutlinedIcon></ShoppingCartOutlinedIcon>
+                    </Badge>
+                    </MenuItem>                
+                </Link>
             </Right>
         </Wrapper>
     </Container>

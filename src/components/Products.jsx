@@ -86,7 +86,7 @@ const Products = ({cat, filters,sort}) => {
 
   return (
     <Container >
-            <DisplayProducts filteredProducts={filteredProducts} products ={products} category = {cat} />
+            <DisplayProducts  filteredProducts={filteredProducts} products ={products} category = {cat} />
     </Container>
   )
 }
