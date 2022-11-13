@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import {mobile} from '../responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/apiCalls';
+import { redirect, useNavigate } from 'react-router-dom';
+
 const Container = styled.div`
     background-image: linear-gradient(to bottom right, rgb(70,78, 144), purple);
     width:100vw;
@@ -97,17 +99,19 @@ const Error = styled.span`
 `;
 
 
-const Register = () => {
+const Login = () => {
     /**
      * @hookDeclarations
      */
     const dispatch = useDispatch();
-
+    const navigate =useNavigate();
 
     /**
      * @useSelectors
      */
     const {isFetching, error} = useSelector((state)=> state.user);
+    const user = useSelector(state=> state.user.currentUser);
+
     /**
      * @useStates
      */
@@ -133,6 +137,11 @@ const Register = () => {
      /**
       * @useEffects
       */
+    useEffect(()=> {
+        if(user){
+            navigate("/");
+        }
+    }, [user])
 
    return (
     <Container>
@@ -156,4 +165,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Login

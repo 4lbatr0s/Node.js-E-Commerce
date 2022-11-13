@@ -1,7 +1,9 @@
-import React from 'react'
+import {useEffect} from 'react'
+import { redirect } from 'react-router-dom';
 import styled from 'styled-components'
 import {mobile} from '../responsive';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const Container = styled.div`
     background-image: linear-gradient(to bottom right, rgb(70,78, 144), purple);
     width:100vw;
@@ -74,6 +76,36 @@ const Button = styled.button`
 `;  
 
 const Register = () => {
+    /**
+     * @hookDeclarations
+     */
+     const dispatch = useDispatch();
+     const navigate =useNavigate();
+ 
+     /**
+      * @useSelectors
+      */
+     const user = useSelector(state=> state.user.currentUser);
+ 
+     /**
+      * @useStates
+      */
+
+  
+      /**
+       * @customFunctions
+       */
+  
+      /**
+       * @useEffects
+       */
+     useEffect(()=> {
+         if(user){
+             navigate("/");
+         }
+     }, [user])
+ 
+
    return (
     <Container>
         <Wrapper>

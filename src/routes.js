@@ -7,19 +7,26 @@ import Login from './pages/Login';
 import Cart from './pages/Cart';
 import { redirect } from 'react-router-dom';
 import Success from './pages/Success';
-const user = false;
+import React from 'react'
+
+
 const projectRouter = createBrowserRouter(
+    
     createRoutesFromElements(
         <>
             <Route
                 path='/'
                 element={<Homepage />}
             />
-            <Route //INFO: How to use CONDITIONAL ROUTING!
+            {/* <Route //INFO: How to use CONDITIONAL ROUTING!
                 path="register"
-                element={user ? (
+                element={true ? (
                     <Navigate replace to={"/"}></Navigate>
                 ) : (<Register />)}
+            /> */}
+                <Route //INFO: We control current user in Register component from now.
+                path="register"
+                element = {<Register />}
             />
             <Route
                 path="products/:category"
@@ -29,11 +36,15 @@ const projectRouter = createBrowserRouter(
                 path="product/:id"
                 element={<Product />}
             />
-            <Route
+            {/* <Route
                 path="login"
-                element={user ? (
+                element={CurrentUser() ? (
                     <Navigate replace to={"/"} />
                 ) : (<Login />)}
+            /> */}
+            <Route
+                path="login"
+                element={<Login />}
             />
             <Route
                 path="cart"
@@ -44,8 +55,6 @@ const projectRouter = createBrowserRouter(
                 element={<Success />}
             />
         </>
-
-
     )
 );
 
