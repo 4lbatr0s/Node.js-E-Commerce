@@ -137,7 +137,7 @@ const Login = () => {
      /**
       * @useEffects
       */
-    useEffect(()=> {
+    useEffect(()=> { //INFO: If there is a current user that exists
         if(user){
             navigate("/");
         }

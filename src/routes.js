@@ -24,7 +24,7 @@ const projectRouter = createBrowserRouter(
                     <Navigate replace to={"/"}></Navigate>
                 ) : (<Register />)}
             /> */}
-                <Route //INFO: We control current user in Register component from now.
+                <Route //INFO: We control current user in Register page from now.
                 path="register"
                 element = {<Register />}
             />
