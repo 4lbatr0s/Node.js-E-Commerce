@@ -3,9 +3,13 @@ import { TEST_URL } from "./url_helper";
 
 const BASE_URL = TEST_URL;
 
-//INFO: HOW TO DYNAMICALLY GET ACCESSTOKEN WITH REDUX-PERSIST!
-const TOKEN = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).currentUser).accessToken; //TIP: root: go to store and see key  value of the persistConfig. It's root! 
-
+const currentUser =JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser; 
+let TOKEN =''
+if(currentUser){
+    //INFO: HOW TO DYNAMICALLY GET ACCESSTOKEN WITH REDUX-PERSIST!
+    TOKEN = currentUser.accessToken;
+    //TIP: root: go to store and see key  value of the persistConfig. It's root! 
+}
 
 //INFO: How to create an axios 
 export const publicRequest = axios.create({
